@@ -1,12 +1,23 @@
 const express = require('express');
 const router = express.Router();
+const dataModel = require('../models/link.model');
 
 // Route to handle adding a new link
-router.post('/addlink', (req, res) => {
-    const { url, context} = req.body;
+router.post('/addlink', async (req, res) => {
+    const { url, context } = req.body;
     console.log(`Received new link: ${url} with description: ${context}`);
-    // Here you would typically add code to save the link to a database
-    res.status(201).send({ message: 'Link added successfully' });
+    
+    try {
+        const linkdata = await dataModel.create({
+            url: url,
+            context: context
+        });
+        console.log('Link added successfully:', linkdata);
+        res.status(201).send({ message: 'Link added successfully', data: linkdata });
+    } catch(err) {
+        console.error('Error adding link:', err.message);
+        res.status(500).send({ message: 'Failed to add link' });
+    }
 });
 
 module.exports = router;
