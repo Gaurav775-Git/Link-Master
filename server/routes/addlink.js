@@ -8,12 +8,18 @@ router.post('/addlink', async (req, res) => {
     console.log(`Received new link: ${url} with description: ${context}`);
     
     try {
-        const linkdata = await dataModel.create({
+        const existinglink = await dataModel.findOne({url: url});
+        if(existinglink){
+            return  res.status(400).send({ message: 'Link already exists' });
+        }else{
+            const linkdata = await dataModel.create({
             url: url,
             context: context
         });
         console.log('Link added successfully:', linkdata);
         res.status(201).send({ message: 'Link added successfully', data: linkdata });
+        }
+        
     } catch(err) {
         console.error('Error adding link:', err.message);
         res.status(500).send({ message: 'Failed to add link' });
