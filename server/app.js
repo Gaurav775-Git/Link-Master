@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var addLinkRouter = require('./routes/addlink');  
 var connectdb = require('./config/connectdb');
+var fetchLinkRouter = require('./routes/fetchlinks');
 
 var app = express();
 var cors = require('cors');
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', addLinkRouter);  // Use the addlink router for /api routes
+app.use('/api', fetchLinkRouter); // Use the fetchlinks router for /api routes
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
