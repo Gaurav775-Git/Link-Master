@@ -1,53 +1,48 @@
-import { useForm } from 'react-hook-form'
-import { useState } from 'react'
-import PropagateLoader from "react-spinners/PropagateLoader"
+import { useForm } from 'react-hook-form';
 
-function LinkForm({ onSubmit }) {
-  const { register, handleSubmit, formState: { errors } } = useForm()
-  const [loader, setLoader] = useState(false)
-
-  // wrapper function to handle loader
-  const handleFormSubmit = async (data) => {
-    setLoader(true)
-    try {
-      await onSubmit(data)   // assuming onSubmit is async
-    } finally {
-      setLoader(false)
-    }
-  }
+function LinkForm({onSubmit}) {
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <form
-        onSubmit={handleSubmit(handleFormSubmit)}
-        className="w-full max-w-md p-8 border-4 border-white rounded-2xl"
-      >
-        <h2 className="text-2xl font-bold mb-6 uppercase text-white flex justify-center">
-          Add Link
+    <div className="w-full bg-white border-4 border-white p-6 sm:p-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <h2 className="text-2xl sm:text-3xl font-black uppercase text-black mb-6">
+          Add New Link
         </h2>
-
-        <input
-          type="url"
-          placeholder="Enter URL"
-          className="w-full px-4 py-3 mb-2 text-white border-2 border-white focus:outline-none focus:border-4 rounded-2xl"
-          {...register('url', { required: true })}
-        />
-        {errors.url && <p className="text-sm mb-4 text-red-500">URL is required</p>}
-
-        <input
-          type="text"
-          placeholder="Enter context"
-          className="w-full px-4 py-3 mb-2 text-white border-2 border-white focus:outline-none focus:border-4 rounded-2xl"
-          {...register('context', { required: true })}
-        />
-        {errors.context && <p className="text-sm mb-4 text-red-500">Context is required</p>}
-
+        
+        <div>
+          <label htmlFor="url" className="block text-sm font-bold uppercase tracking-wide text-black mb-2">
+            URL
+          </label>
+          <input 
+            type="url" 
+            id="url" 
+            placeholder="https://example.com"
+            className="w-full px-4 py-3 border-4 border-black bg-white text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 text-base"
+            {...register('url',{required:'URL is required'})}
+          />
+          {errors.url && <p className="text-sm mt-2 font-bold text-black">⚠ {errors.url.message}</p>}
+        </div>
+        
+        <div>
+          <label htmlFor="context" className="block text-sm font-bold uppercase tracking-wide text-black mb-2">
+            Context
+          </label>
+          <textarea 
+            id="context" 
+            rows="4"
+            placeholder="What is this link about?"
+            className="w-full px-4 py-3 border-4 border-black bg-white text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 resize-none text-base"
+            {...register('context',{required:'Context is required'})}
+          />
+          {errors.context && <p className="text-sm mt-2 font-bold text-black">⚠ {errors.context.message}</p>}
+        </div>
+        
         <button
           type="submit"
-          disabled={loader}
-          className="w-full py-3 border-2 bg-gray-700 text-white font-bold uppercase cursor-pointer hover:bg-gray-800 rounded-2xl flex justify-center"
+          className="w-full py-4 bg-black text-white border-4 border-black font-bold uppercase tracking-wider hover:bg-gray-800 transition-all text-base sm:text-lg"
         >
-          {loader ? <PropagateLoader size={10} color="#ffffff" /> : "Submit"}
+          Save Link
         </button>
       </form>
     </div>
