@@ -1,5 +1,4 @@
-import React from 'react'
-import { Router , Routes ,Route, BrowserRouter} from 'react-router-dom'
+import {  Routes ,Route, BrowserRouter} from 'react-router-dom'
 import Dash from './pages/Dash'
 
 const App = () => {

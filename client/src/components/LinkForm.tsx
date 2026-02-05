@@ -1,6 +1,15 @@
 import { useForm } from 'react-hook-form';
+type LinkFormProps = {
+  onSubmit: (data: LinkFormData) => void
+}
 
-function LinkForm({onSubmit}) {
+type LinkFormData = {
+  title: string
+  url: string
+}
+
+
+function LinkForm ({ onSubmit }: LinkFormProps) {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   return (
@@ -35,7 +44,10 @@ function LinkForm({onSubmit}) {
             className="w-full px-4 py-3 border-4 border-black bg-white text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 resize-none text-base"
             {...register('context',{required:'Context is required'})}
           />
-          {errors.context && <p className="text-sm mt-2 font-bold text-black">⚠ {errors.context.message}</p>}
+          {errors.title?.message && (
+  <p>{String(errors.title.message)}</p>
+)}
+
         </div>
         
         <button

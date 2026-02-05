@@ -1,6 +1,15 @@
-import React from 'react'
+type Link = {
+  id: string
+  title: string
+  url: string
+}
 
-const LinkCard = ({ link }) => {
+type LinkCardProps = {
+  link: Link
+}
+
+
+const LinkCard = ({ link }: LinkCardProps) => {
   return (
     <div className='border-4 border-white p-6 bg-black hover:bg-white hover:text-black transition-all duration-300 group h-full flex flex-col'>
       <a 
