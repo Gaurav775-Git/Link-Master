@@ -1,4 +1,8 @@
-const SearchBar = ({ onSearch }) => {
+type SearchBarProps = {
+  onSearch: (query: string) => void
+}
+
+const SearchBar = ({ onSearch }: SearchBarProps) => {
   return (
     <input 
       type="text" 

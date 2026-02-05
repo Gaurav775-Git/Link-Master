@@ -1,7 +1,9 @@
 type Link = {
-  id: string
+  _id: string
   title: string
   url: string
+  context: string
+  createdAt: string
 }
 
 type LinkCardProps = {

@@ -1,13 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import LinkForm from '../components/LinkForm'
 import SearchBar from '../components/SearchBar'
 import LinkCard from '../components/LinkCard'
 import '../App.css'
 
+type Link = {
+  _id: string
+  title: string
+  url: string
+  context: string
+  createdAt: string
+}
+
+type LinkFormData = {
+  title: string
+  url: string
+  context: string
+}
+
 const Dash = () => {
   const [popup, setPopup] = useState(false)
-  const [links, setLinks] = useState([])
-  const [filteredLinks, setFilteredLinks] = useState([])
+  const [links, setLinks] = useState<Link[]>([])
+  const [filteredLinks, setFilteredLinks] = useState<Link[]>([])
 
   async function fetchlinks(){
     try{
@@ -24,7 +38,7 @@ const Dash = () => {
     fetchlinks();
   }, [])
 
-  function handleSearch(query) {
+  function handleSearch(query: string) {
     if (query === '') {
       setFilteredLinks(links);
     } else {
@@ -40,7 +54,7 @@ const Dash = () => {
     setPopup(true)
   }
 
-  async function handleaddlink(data) {
+  async function handleaddlink(data: LinkFormData) {
     try {
       const response = await fetch('https://link-master.onrender.com/api/addlink', {
         method: 'POST',

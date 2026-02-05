@@ -1,16 +1,17 @@
 import { useForm } from 'react-hook-form';
-type LinkFormProps = {
-  onSubmit: (data: LinkFormData) => void
-}
 
 type LinkFormData = {
   title: string
   url: string
+  context: string
 }
 
+type LinkFormProps = {
+  onSubmit: (data: LinkFormData) => void
+}
 
 function LinkForm ({ onSubmit }: LinkFormProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm<LinkFormData>();
 
   return (
     <div className="w-full bg-white border-4 border-white p-6 sm:p-8">
@@ -30,7 +31,7 @@ function LinkForm ({ onSubmit }: LinkFormProps) {
             className="w-full px-4 py-3 border-4 border-black bg-white text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 text-base"
             {...register('url',{required:'URL is required'})}
           />
-          {errors.url && <p className="text-sm mt-2 font-bold text-black">⚠ {errors.url.message}</p>}
+          {errors.url && <p className="text-sm mt-2 font-bold text-black">⚠ {String(errors.url.message)}</p>}
         </div>
         
         <div>
@@ -39,14 +40,12 @@ function LinkForm ({ onSubmit }: LinkFormProps) {
           </label>
           <textarea 
             id="context" 
-            rows="4"
+            rows={4}
             placeholder="What is this link about?"
             className="w-full px-4 py-3 border-4 border-black bg-white text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 resize-none text-base"
             {...register('context',{required:'Context is required'})}
           />
-          {errors.title?.message && (
-  <p>{String(errors.title.message)}</p>
-)}
+          {errors.context && <p className="text-sm mt-2 font-bold text-black">⚠ {String(errors.context.message)}</p>}
 
         </div>
         
