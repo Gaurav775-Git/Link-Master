@@ -11,7 +11,7 @@ const Dash = () => {
 
   async function fetchlinks(){
     try{
-      const response = await fetch("http://localhost:3000/api/fetchlinks");
+      const response = await fetch("https://link-master.onrender.com/api/fetchlinks");
       const results = await response.json();
       setLinks(results.data);
       setFilteredLinks(results.data);
@@ -42,7 +42,7 @@ const Dash = () => {
 
   async function handleaddlink(data) {
     try {
-      const response = await fetch('http://localhost:3000/api/addlink', {
+      const response = await fetch('https://link-master.onrender.com/api/addlink', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
