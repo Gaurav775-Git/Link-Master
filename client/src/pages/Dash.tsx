@@ -19,18 +19,22 @@ type LinkFormData = {
 }
 
 const Dash = () => {
+  const [loader ,setloader] = useState(false)
   const [popup, setPopup] = useState(false)
   const [links, setLinks] = useState<Link[]>([])
   const [filteredLinks, setFilteredLinks] = useState<Link[]>([])
 
   async function fetchlinks(){
     try{
+      setloader(true);
       const response = await fetch("https://link-master.onrender.com/api/fetchlinks");
       const results = await response.json();
       setLinks(results.data);
       setFilteredLinks(results.data);
     }catch(err){
       console.log("error in fetching the links", err);
+    }finally{
+      setloader(false); 
     }
   }
 
@@ -97,7 +101,7 @@ const Dash = () => {
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {filteredLinks.length === 0 ? (
+          {loader ? filteredLinks.length === 0 ? (
             <div className='col-span-full text-center py-20'>
               <p className='text-xl text-gray-400'>No links found</p>
             </div>
@@ -105,7 +109,7 @@ const Dash = () => {
             filteredLinks.map((link) => (
               <LinkCard key={link._id} link={link} />
             ))
-          )}
+          ):<div className='flex justify-center items-center font-bold'>Loading...</div>}
         </div>
       </div>
 
