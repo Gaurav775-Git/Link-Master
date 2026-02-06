@@ -101,7 +101,7 @@ const Dash = () => {
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {loader ? filteredLinks.length === 0 ? (
+          {!loader ? filteredLinks.length === 0 ? (
             <div className='col-span-full text-center py-20'>
               <p className='text-xl text-gray-400'>No links found</p>
             </div>
