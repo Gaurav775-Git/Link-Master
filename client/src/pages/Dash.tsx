@@ -3,6 +3,7 @@ import LinkForm from '../components/LinkForm'
 import SearchBar from '../components/SearchBar'
 import LinkCard from '../components/LinkCard'
 import '../App.css'
+import {Riple} from 'react-loading-indicators'
 
 type Link = {
   _id: string
@@ -109,7 +110,7 @@ const Dash = () => {
             filteredLinks.map((link) => (
               <LinkCard key={link._id} link={link} />
             ))
-          ):<div className='flex justify-center items-center font-bold'>Loading...</div>}
+          ):<div className='flex justify-center items-center'><Riple color="#ffffff" size="medium" text="" textColor="#fbeaea" /></div>}
         </div>
       </div>
 
